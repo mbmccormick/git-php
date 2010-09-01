@@ -111,7 +111,7 @@
             $perm = perm_string($obj['perm']);
             if ($obj['type'] == 'tree') {
                 $objlink = "<a href=\"".sanitized_url()."p=$proj&t={$obj['hash']}\">{$obj['file']}</a>\n";
-                $icon = "<img src=\"/images/folder.png\" style=\"border-width: 0px;\"/>";
+                $icon = "<img src=\"images/folder.png\" style=\"border-width: 0px;\"/>";
             }
             else if ($obj['type'] == 'blob')    {
                 $plain = "<a href=\"".sanitized_url()."p=$proj&dl=plain&h={$obj['hash']}\">plain</a>";
@@ -119,9 +119,9 @@
                 $objlink = "<a class=\"blob\" href=\"".sanitized_url()."p=$proj&b={$obj['hash']}\">{$obj['file']}</a>\n";
                 $ext=@$extEnscript[strrchr($obj['file'],".")];
                 if($ext == "")
-                    $icon = "<img src=\"/images/plain.png\" style=\"border-width: 0px;\"/>";
+                    $icon = "<img src=\"images/plain.png\" style=\"border-width: 0px;\"/>";
                 else
-                    $icon = "<img src=\"/images/color.png\" style=\"border-width: 0px;\"/>";
+                    $icon = "<img src=\"images/color.png\" style=\"border-width: 0px;\"/>";
             }
 
             echo "<tr><td>$perm</td><td>$icon</td><td>$objlink</td><td>$plain$raw</td></tr>\n";
@@ -232,7 +232,7 @@
         }
 
         echo "<a href=\"http://www.kernel.org/pub/software/scm/git/docs/\">" . 
-                 "<img src=\"/images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
+                 "<img src=\"images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
         
         echo "</div>\n";
         echo "</div>\n";
@@ -551,7 +551,7 @@
         echo $crumb;
         
         echo "<a class=\"gitlogo\" href=\"http://www.kernel.org/pub/software/scm/git/docs/\">" . 
-                 "<img src=\"/images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
+                 "<img src=\"images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
         
         
         echo "</div>\n";
