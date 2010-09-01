@@ -6,19 +6,21 @@
     global $help_url;
     
     // title of the website
-    $title = "code.mbmccormick.com";
+    $title = "McCormick Technologies - Source Code";
     
     // list of repositories to display
     $repos = array(
-        "/home/mtgitosis/repositories/mccormicktechnologies.com.git",
-        "/home/mtgitosis/repositories/indianlakeartisans.com.git",
-        "/home/mtgitosis/repositories/mbmccormick.com.git",
+        "/home/gitbase/repositories/mccormicktechnologies.com.git",
+        "/home/gitbase/repositories/indianlakeartisans.com.git",
+        "/home/gitbase/repositories/mbmccormick.com.git",
+        "/home/gitbase/repositories/google-email-server.git",
+        "/home/gitbase/repositories/peek-download-tool.git",
     );
     
     // help message for clone
-    $help_clone = "git clone mtgitosis@code.mbmccormick.com:&lt;projectname&gt;.git &lt;localpath&gt;";
+    $help_clone = "git clone gitbase@mccormicktechnologies.com:&lt;projectname&gt;.git &lt;localpath&gt;";
     
     // help message for contact url
-    $help_url = "http://mbmccormick.com/";
+    $help_url = "http://www.mccormicktechnologies.com/";
 
 ?>

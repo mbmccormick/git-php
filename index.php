@@ -131,7 +131,9 @@
     }
 
     function html_shortlog($repo, $count)   {
+        echo "<br />\n";
         echo "<table cellspacing=\"0\">\n";
+        echo "<tr><th>Date</b></th><th>Author</b></th><th>Message</b></th><th>Diff</b></th></tr>\n"; 
         $c = git_commit($repo, "HEAD");
         for ($i = 0; $i < $count && $c; $i++)  {
             $date = date("D n/j/y G:i", (int)$c['date']);
@@ -152,9 +154,9 @@
         $last =  get_last($repo);
 
         echo "<table cellspacing=\"0\">\n";
-        echo "<tr><td>description</td><td>$desc</td></tr>\n";
-        echo "<tr><td>owner</td><td>$owner</td></tr>\n";
-        echo "<tr><td>last change</td><td>$last</td></tr>\n";
+        echo "<tr><th>Description</th><td>$desc</td></tr>\n";
+        echo "<tr><th>Owner</th><td>$owner</td></tr>\n";
+        echo "<tr><th>Last Change</th><td>$last</td></tr>\n";
         echo "</table>\n";
     }
 
