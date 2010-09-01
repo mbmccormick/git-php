@@ -185,7 +185,7 @@
             echo "<head>\n";
             echo "\t<title>$title</title>\n";
             echo "\t<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n";
-            echo "\t<link rel=\"shortcut icon\" href=\"favicon.ico\" type=\"image/png\" />\n";
+            echo "\t<link rel=\"shortcut icon\" href=\"/favicon.png\" type=\"image/png\" />\n";
             echo "</head>\n";
             echo "<body>\n";
         }
