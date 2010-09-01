@@ -19,6 +19,8 @@ Once this is complete, you should be able to browse to this directory in any web
 
 This application is a web interface. Simply enter the URL that you setup during installation into any web browser and you should have access to the repository. You can browse source code, view commit diffs, download source, and more.
 
+You can view a demo of this application [here](http://mbmccormick.com/labs/git-php/).
+
 
 ## Disclaimer
 
