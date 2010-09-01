@@ -1,74 +1,6 @@
 <?php
 
-/* vim: set expandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
-// +------------------------------------------------------------------------+
-// | git-php - PHP front end to git repositories                            |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2006 Zack Bartel                                         |
-// +------------------------------------------------------------------------+
-// | This program is free software; you can redistribute it and/or          |
-// | modify it under the terms of the GNU General Public License            | 
-// | as published by the Free Software Foundation; either version 2         | 
-// | of the License, or (at your option) any later version.                 |
-// |                                                                        |
-// | This program is distributed in the hope that it will be useful,        |
-// | but WITHOUT ANY WARRANTY; without even the implied warranty of         |
-// | MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          |
-// | GNU General Public License for more details.                           |
-// |                                                                        |
-// | You should have received a copy of the GNU General Public License      |
-// | along with this program; if not, write to the Free Software            |
-// | Foundation, Inc., 59 Temple Place - Suite 330,                         |
-// | Boston, MA  02111-1307, USA.                                           |
-// +------------------------------------------------------------------------+
-// | Author: Zack Bartel <zack@bartel.com>                                  |
-// +------------------------------------------------------------------------+ 
-
-    global $title;
-    global $repos;
-    global $help_clone;
-    global $help_url;
-    global $git_embed;
-    global $git_css;
-    global $git_logo;
-
-    /* Add the default css */
-    $git_css = true;
-
-    /* Add the git logo in the footer */
-    $git_logo = true;
-
-    $title = "code.mbmccormick.com";
-    $repo_index = "index.aux";
-    
-    $help_clone = "git clone mtgitosis@code.mbmccormick.com:&lt;projectname&gt;.git &lt;localpath&gt;";
-    $help_url = "http://mbmccormick.com/";
-
-    //repos could be made by an embeder script
-    if (!is_array($repos))
-        $repos = array();
-
-    if (file_exists($repo_index))   {
-        $r = file($repo_index);
-        foreach ($r as $repo)
-            $repos[] = trim($repo);
-    }
-    else if((file_exists($repo_directory)) && (is_dir($repo_directory))){
-        if ($handle = opendir($repo_directory)) {
-            while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != "..") {
-                    /* TODO: Check for valid git repos */
-                    $repos[] = trim($repo_directory . $file);
-                }
-            }
-            closedir($handle);
-        } 
-    }
-    else    
-        $repos = array(
-            "/home/mtgitosis/repositories/mccormicktechnologies.com.git",
-            "/home/mtgitosis/repositories/remindableapp.com.git",
-        );
+    include "config.php";
 
     sort($repos);
 
@@ -255,7 +187,7 @@
             echo "\t<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n";
             echo "\t<link rel=\"shortcut icon\" href=\"favicon.ico\" type=\"image/png\" />\n";
             echo "</head>\n";
-            echo "<body onload=\"prettyPrint()\">\n";
+            echo "<body>\n";
         }
         /* Add rss2 link */
         if (isset($_GET['p']))  {
@@ -297,11 +229,9 @@
             echo "<a class=\"rss_logo\" href=\"".sanitized_url()."p={$_GET['p']}&dl=rss2\" >RSS</a>\n";
         }
 
-        if ($git_logo)    {
-            echo "<a href=\"http://www.kernel.org/pub/software/scm/git/docs/\">" . 
-                 "<img src=\"".sanitized_url()."dl=git_logo\" style=\"border-width: 0px;\"/></a>\n";
-        }
-
+        echo "<a href=\"http://www.kernel.org/pub/software/scm/git/docs/\">" . 
+                 "<img src=\"/images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
+        
         echo "</div>\n";
         echo "</div>\n";
         if (!$git_embed)    {
@@ -617,6 +547,11 @@
             $crumb .= 'commitdiff';
 
         echo $crumb;
+        
+        echo "<a class=\"gitlogo\" href=\"http://www.kernel.org/pub/software/scm/git/docs/\">" . 
+                 "<img src=\"/images/logo.png\" style=\"border-width: 0px;\"/></a>\n";
+        
+        
         echo "</div>\n";
     }
 
@@ -696,94 +631,6 @@
     }
 
     function html_style()   {
-        global $git_css;
-        
-        if (file_exists("style.css"))
             echo "<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\" />\n";
-        if (!$git_css)
-            return;
-
-        else    {
-        echo "<style type=\"text/css\">\n";
-        echo <<< EOF
-            #gitbody    {
-                margin: 20px 10px 20px 10px;
-                border-style: solid;
-                border-width: 1px;
-                border-color: gray;
-                font-family: sans-serif;
-                font-size: 12px;
-            }
-
-            div.githead    {
-                margin: 0px 0px 0px 0px;
-                padding: 10px 10px 10px 10px;
-                background-color: #d9d8d1;
-                font-weight: bold;
-                font-size: 18px;
-            }
-            
-            table {
-                padding: 5px;
-            }
-
-            #gitbody th {
-                text-align: left;
-                padding: 3px 0px 3px 8px;
-            }
-
-            #gitbody td {
-                text-align: left;
-                padding: 3px 0px 3px 7px;
-            }
-
-            tr:hover { background-color: #edece6; }
-            
-            tr.head:hover { background-color: transparent; }
-
-            div.gitbrowse a.blob {
-                text-decoration: none;
-                color: #000000;
-            }
-
-            div.gitcode {
-                padding: 10px;
-            }
-
-            div.gitspacer   {
-                padding: 1px 0px 0px 0px;
-                background-color: #FFFFFF;
-            }
-
-            div.gitfooter {
-                padding: 7px 2px 2px 2px;
-                background-color: #d9d8d1;
-                text-align: right;
-            }
-
-            div.gittitle   {
-                padding: 7px 7px 7px 13px;
-                background-color: #d9d8d1;
-                font-weight: bold;
-            }
-
-            div.gitbrowse a.blob:hover {
-                text-decoration: underline;
-            }
-            a.gitbrowse:hover { text-decoration:underline; color:#880000; }
-            a.rss_logo {
-                float:left; padding:3px 0px; width:35px; line-height:10px;
-                    margin: 2px 5px 5px 5px;
-                    border:1px solid; border-color:#fcc7a5 #7d3302 #3e1a01 #ff954e;
-                    color:#ffffff; background-color:#ff6600;
-                    font-weight:bold; font-family:sans-serif; font-size:10px;
-                    text-align:center; text-decoration:none;
-                }
-            a.rss_logo:hover { background-color:#ee5500; }
-            a:visited { color: #0000FF; }
-EOF;
-
-        echo "</style>\n";
-        }
     }
 ?>
