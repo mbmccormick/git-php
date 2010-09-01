@@ -11,7 +11,8 @@
     // list of repositories to display
     $repos = array(
         "/home/mtgitosis/repositories/mccormicktechnologies.com.git",
-        "/home/mtgitosis/repositories/remindableapp.com.git",
+        "/home/mtgitosis/repositories/indianlakeartisans.com.git",
+        "/home/mtgitosis/repositories/mbmccormick.com.git",
     );
     
     // help message for clone
