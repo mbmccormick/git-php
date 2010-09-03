@@ -1,6 +1,7 @@
 <?php
 
-    include "config.php";
+    include_once "config.php";
+    include_once "lib/geshi.php";
 
     sort($repos);
 
@@ -92,11 +93,18 @@
     }
 
     function html_diff($proj, $commit, $parent)    {
-        $repo = get_repo_path($proj);
-        exec("GIT_DIR=$repo git diff $parent $commit", $out);
-  
+        $repo = get_git(get_repo_path($proj));
+        
+        $command = "GIT_DIR=$repo git diff $parent $commit";
+        exec($command, $out);
+        
+        $source = implode("\n", $out);
+        $language = "diff";
+        $geshi = new GeSHi($source, $language);
+        $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+        
         echo "<div class=\"gitcode\">\n";
-        echo highlight_code(implode("\n", $out));
+        echo $geshi->parse_code();
         echo "</div>\n";
     }
 
