@@ -10,15 +10,15 @@
     
     // list of repositories to display
     $repos = array(
-        "/home/gitbase/repositories/mccormicktechnologies.com.git",
-        "/home/gitbase/repositories/indianlakeartisans.com.git",
-        "/home/gitbase/repositories/mbmccormick.com.git",
-        "/home/gitbase/repositories/google-email-server.git",
-        "/home/gitbase/repositories/peek-download-tool.git",
+        "/home/gitps/repositories/mccormicktechnologies.com.git",
+        "/home/gitps/repositories/indianlakeartisans.com.git",
+        "/home/gitps/repositories/mbmccormick.com.git",
+        "/home/gitps/repositories/google-email-server.git",
+        "/home/gitps/repositories/peek-download-tool.git",
     );
     
     // help message for clone
-    $help_clone = "git clone gitbase@mccormicktechnologies.com:&lt;projectname&gt;.git &lt;localpath&gt;";
+    $help_clone = "git clone gitps@mccormicktechnologies.com:&lt;projectname&gt;.git &lt;localpath&gt;";
     
     // help message for contact url
     $help_url = "http://www.mccormicktechnologies.com/";
