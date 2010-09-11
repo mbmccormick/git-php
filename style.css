@@ -7,7 +7,7 @@ a { color: #008000; }
     border-style: solid;
     border-width: 1px;
     border-color: gray;
-    font-family: sans-serif;
+    font-family: Calibri, sans-serif;
     font-size: 12px;
 }
 
@@ -30,7 +30,7 @@ table {
 
 #gitbody td {
     text-align: left;
-    padding: 3px 0px 3px 7px;
+    padding: 3px 5px 3px 8px;
 }
 
 tr:hover { background-color: #edece6; }
