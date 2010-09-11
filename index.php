@@ -29,8 +29,6 @@
 
     html_header();
 
-    html_style();
-
     html_breadcrumbs();
 
     if (isset($_GET['p']))  { 
@@ -196,6 +194,7 @@
             echo "\t<title>$title</title>\n";
             echo "\t<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n";
             echo "\t<link rel=\"shortcut icon\" href=\"/favicon.png\" type=\"image/png\" />\n";
+            echo "\t<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\" />\n";
             echo "</head>\n";
             echo "<body>\n";
         }
@@ -640,7 +639,4 @@
         return $code;
     }
 
-    function html_style()   {
-            echo "<link rel=\"stylesheet\" href=\"style.css\" type=\"text/css\" />\n";
-    }
 ?>
