@@ -8,6 +8,7 @@
     $lines = file($repolist);
     foreach ($lines as $line_num => $line)
     {
+        echo $reporoot . split(" ", $line);
         $repos[] = $reporoot . split(" ", $line);
     }
 
