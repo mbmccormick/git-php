@@ -7,8 +7,9 @@
     $repos = array();
     $lines = file($repolist);
     foreach ($lines as $line_num => $line)
-    {        
-        $repos[] = $reporoot . split(" ", $line)[0];
+    {
+        $reponame = split(" ", $line)[0];
+        $repos[] = $reporoot . $reponame;
     }
 
     sort($repos);
