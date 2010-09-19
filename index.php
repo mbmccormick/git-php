@@ -2,11 +2,21 @@
 
     include_once "config.php";
     include_once "lib/geshi.php";
+    
+    // init config
+    $repos = array();
+    $lines = file($repolist);
+    foreach ($lines as $line_num => $line)
+    {
+        $repos[] = $reporoot . split(" ", $line)
+    }
 
     sort($repos);
 
     if (!isset($git_embed) && $git_embed != true)
+    {
         $git_embed = false;
+    }
 
     foreach ($_GET as $var=>$val)
     {
@@ -14,6 +24,7 @@
     }
 
     if (isset($_GET['dl']))
+    {
         if ($_GET['dl'] == 'targz') 
             write_targz(get_repo_path($_GET['p']));
         else if ($_GET['dl'] == 'zip')
@@ -26,24 +37,30 @@
             write_raw();
         else if ($_GET['dl'] == 'rss2')
             write_rss2();
+    }
 
     html_header();
 
     html_breadcrumbs();
 
-    if (isset($_GET['p']))  { 
+    if (isset($_GET['p']))
+    { 
         html_spacer();
         html_title("Summary");
         html_summary($_GET['p']);
         html_spacer();
         if ($_GET['a'] == "commitdiff")
+        {
             html_diff($_GET['p'], $_GET['h'], $_GET['hb']);
-        else    {
+        }
+        else
+        {
             html_title("Files");
             html_browse($_GET['p']);
         }
     }
-    else    {
+    else
+    {
         html_spacer();
         html_title("Repositories");
         html_home();
@@ -55,15 +72,16 @@
     html_spacer();
     html_footer();
 
-    function html_summary($proj)    {
+    function html_summary($proj)
+    {
         $repo = get_repo_path($proj);
         html_desc($repo);
         if (!isset($_GET['t']) && !isset($_GET['b']))
             html_shortlog($repo, 6);
     }
 
-    function html_browse($proj)   {
-
+    function html_browse($proj)  
+    {
         if (isset($_GET['b']))
             html_blob($proj, $_GET['b']);
         else    {
@@ -73,10 +91,10 @@
                 $tree = "HEAD";
              html_tree($proj, $tree); 
         }
-
     }
 
-    function html_blob($proj, $blob)    {
+    function html_blob($proj, $blob)
+    {
         $repo = get_repo_path($proj);
         $out = array();
         $plain = "<a href=\"".sanitized_url()."p=$proj&dl=plain&h=$blob\">plain</a>";
@@ -90,7 +108,8 @@
         echo "</div>\n";
     }
 
-    function html_diff($proj, $commit, $parent)    {
+    function html_diff($proj, $commit, $parent)
+    {
         $repo = get_git(get_repo_path($proj));
         
         $command = "GIT_DIR=$repo git diff $parent $commit";
@@ -106,20 +125,24 @@
         echo "</div>\n";
     }
 
-    function html_tree($proj, $tree)   {
+    function html_tree($proj, $tree)
+    {
         $t = git_ls_tree(get_repo_path($proj), $tree);
 
         echo "<div class=\"gitbrowse\">\n";
         echo "<table cellspacing=\"0\">\n";
-        foreach ($t as $obj)    {
+        foreach ($t as $obj)
+        {
             $plain = "";
             $raw = "";
             $perm = perm_string($obj['perm']);
-            if ($obj['type'] == 'tree') {
+            if ($obj['type'] == 'tree')
+            {
                 $objlink = "<a href=\"".sanitized_url()."p=$proj&t={$obj['hash']}\">{$obj['file']}</a>\n";
                 $icon = "<img src=\"images/folder.png\" style=\"border-width: 0px;\"/>";
             }
-            else if ($obj['type'] == 'blob')    {
+            else if ($obj['type'] == 'blob')
+            {
                 $plain = "<a href=\"".sanitized_url()."p=$proj&dl=plain&h={$obj['hash']}\">plain</a>";
                 $raw = " | <a href=\"".sanitized_url()."p=$proj&dl=raw&h={$obj['hash']}&n={$obj['file']}\">raw</a>";
                 $objlink = "<a class=\"blob\" href=\"".sanitized_url()."p=$proj&b={$obj['hash']}\">{$obj['file']}</a>\n";
@@ -136,12 +159,14 @@
         echo "</div>\n";
     }
 
-    function html_shortlog($repo, $count)   {
+    function html_shortlog($repo, $count)
+    {
         echo "<br />\n";
         echo "<table cellspacing=\"0\">\n";
         echo "<tr><th>Date</b></th><th>Author</b></th><th>Message</b></th><th>Diff</b></th></tr>\n"; 
         $c = git_commit($repo, "HEAD");
-        for ($i = 0; $i < $count && $c; $i++)  {
+        for ($i = 0; $i < $count && $c; $i++)
+        {
             $date = date("D n/j/y G:i", (int)$c['date']);
             $cid = $c['commit_id'];
             $pid = $c['parent'];
@@ -153,8 +178,8 @@
         echo "</table>\n";
     }
 
-    function html_desc($repo)    {
-        
+    function html_desc($repo)
+    {        
         $desc = file_get_contents("$repo/description"); 
         $owner = get_file_owner($repo);
         $last =  get_last($repo);
@@ -166,8 +191,8 @@
         echo "</table>\n";
     }
 
-    function html_home()    {
-
+    function html_home()
+    {
         global $repos; 
         echo "<table cellspacing=\"0\">\n";
         echo "<tr class=\"head\"><th>Project</th><th>Description</th><th>Owner</th><th>Last Changed</th><th>Download</th></tr>\n";
@@ -183,11 +208,13 @@
         echo "</table>";
     }
 
-    function html_header()  {
+    function html_header()
+    {
         global $title;
         global $git_embed;
         
-        if (!$git_embed)    {
+        if (!$git_embed)
+        {
             echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n";
             echo "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n";
             echo "<head>\n";
@@ -198,16 +225,18 @@
             echo "</head>\n";
             echo "<body>\n";
         }
+        
         /* Add rss2 link */
-        if (isset($_GET['p']))  {
+        if (isset($_GET['p']))
+        {
             echo "<link rel=\"alternate\" title=\"{$_GET['p']}\" href=\"".sanitized_url()."p={$_GET['p']}&dl=rss2\" type=\"application/rss+xml\" />\n";
         }
-        echo "<div id=\"gitbody\">\n";
         
+        echo "<div id=\"gitbody\">\n";        
     }
 
-    function write_git_logo()   {
-
+    function write_git_logo()
+    {
         $git = "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a\x00\x00\x00\x0d\x49\x48\x44\x52" .
         "\x00\x00\x00\x48\x00\x00\x00\x1b\x04\x03\x00\x00\x00\x2d\xd9\xd4" .
         "\x2d\x00\x00\x00\x18\x50\x4c\x54\x45\xff\xff\xff\x60\x60\x5d\xb0" .
@@ -228,13 +257,15 @@
         die();
     }
 
-    function html_footer()  {
+    function html_footer()
+    {
         global $git_embed;
         global $git_logo;
 
         echo "<div class=\"gitfooter\">\n";
 
-        if (isset($_GET['p']))  {
+        if (isset($_GET['p']))
+        {
             echo "<a class=\"rss_logo\" href=\"".sanitized_url()."p={$_GET['p']}&dl=rss2\" >RSS</a>\n";
         }
 
@@ -243,25 +274,28 @@
         
         echo "</div>\n";
         echo "</div>\n";
-        if (!$git_embed)    {
+        if (!$git_embed)
+        {
             echo "</body>\n";
             echo "</html>\n";
         }
     }
 
 
-    function git_tree_head($gitdir) {
+    function git_tree_head($gitdir)
+    {
         return git_tree($gitdir, "HEAD");
     }
 
-    function git_tree($gitdir, $tree) {
+    function git_tree($gitdir, $tree)
+    {
         $out = array();
         $command = "GIT_DIR=$gitdir git ls-tree --name-only $tree";
         exec($command, $out);
     }
 
-    function get_git($repo) {
-
+    function get_git($repo)
+    {
         if (file_exists("$repo/.git"))
             $gitdir = "$repo/.git";
         else
@@ -269,7 +303,8 @@
         return $gitdir;
     }
 
-    function get_file_owner($path)  {
+    function get_file_owner($path) 
+    {
 //        $s = stat($path);
 //        $pw = posix_getpwuid($s["uid"]);
 //        return preg_replace("/[,;]/", "", $pw["gecos"]);
@@ -278,13 +313,15 @@
         return $own;
     }
 
-    function get_last($repo)    {
+    function get_last($repo)
+    {
         $out = array();
         $date = exec("GIT_DIR=$repo git rev-list  --header --max-count=1 HEAD | grep -a committer | cut -f5-6 -d' '", $out);
         return date("D n/j/y G:i", (int)$date);
     }
 
-    function get_project_link($repo, $type = false)    {
+    function get_project_link($repo, $type = false)
+    {
         $path = basename($repo);
         if (!$type)
             return "<a href=\"".sanitized_url()."p=$path\">$path</a>";
@@ -294,7 +331,8 @@
             return "<a href=\"".sanitized_url()."p=$path&dl=zip\">.zip</a>";
     }
 
-    function git_commit($repo, $cid)  {
+    function git_commit($repo, $cid)
+    {
         $out = array();
         $commit = array();
 
@@ -312,7 +350,8 @@
 
         $g = explode(" ", $out[3]);
         /* variable number of strings for the name */
-        for ($i = 1; $g[$i][0] != '<' && $i < 5; $i++)   {
+        for ($i = 1; $g[$i][0] != '<' && $i < 5; $i++)
+        {
             $commit["author"] .= "{$g[$i]} ";
         }
 
@@ -325,24 +364,28 @@
         return $commit;
     }
 
-    function get_repo_path($proj)   {
+    function get_repo_path($proj)
+    {
         global $repos;
     
-        foreach ($repos as $repo)   {
+        foreach ($repos as $repo)
+        {
             $path = basename($repo);
             if ($path == $proj)
                 return $repo;
         }
     }
 
-    function git_ls_tree($repo, $tree) {
+    function git_ls_tree($repo, $tree)
+    {
         $ary = array();
             
         $out = array();
         //Have to strip the \t between hash and file
         exec("GIT_DIR=$repo git ls-tree $tree | sed -e 's/\t/ /g'", $out);
 
-        foreach ($out as $line) {
+        foreach ($out as $line)
+        {
             $entry = array();
             $arr = explode(" ", $line);
             $entry['perm'] = $arr[0];
@@ -355,13 +398,15 @@
     }
 
     /* TODO: cache this */
-    function sanitized_url()    {
+    function sanitized_url()
+    {
         global $git_embed;
 
         /* the sanitized url */
         $url = "{$_SERVER['SCRIPT_NAME']}?";
 
-        if (!$git_embed)    {
+        if (!$git_embed)
+        {
             return $url;
         }
 
@@ -369,8 +414,10 @@
         $git_get = array('p', 'dl', 'b', 'a', 'h', 't', 'hb');
 
 
-        foreach ($_GET as $var => $val) {
-            if (!in_array($var, $git_get))   {
+        foreach ($_GET as $var => $val)
+        {
+            if (!in_array($var, $git_get))
+            {
                 $get[$var] = $val;
                 $url.="$var=$val&amp;";
             }
@@ -378,7 +425,8 @@
         return $url;
     }
 
-    function write_plain()  {
+    function write_plain()
+    {
         $repo = get_repo_path($_GET['p']);
         $hash = $_GET['h'];
         header("Content-Type: text/plain");
@@ -405,7 +453,8 @@
         die();
     }
 
-    function write_targz($repo) {
+    function write_targz($repo)
+    {
         $p = basename($repo);
         $proj = explode(".", $p);
         $proj = $proj[0]; 
@@ -424,7 +473,8 @@
         die();
     }
 
-    function write_zip($repo) {
+    function write_zip($repo)
+    {
         $p = basename($repo);
         $proj = explode(".", $p);
         $proj = $proj[0]; 
@@ -443,7 +493,8 @@
         die();
     }
 
-    function write_rss2()   {
+    function write_rss2()
+    {
         $proj = $_GET['p'];
         $repo = get_repo_path($proj);
         $link = "http://{$_SERVER['HTTP_HOST']}".sanitized_url()."p=$proj";
@@ -486,8 +537,8 @@
         die();
     }
 
-    function perm_string($perms)    {
-
+    function perm_string($perms)
+    {
         //This sucks
         switch ($perms) {
             case '040000':
@@ -504,14 +555,19 @@
         }
     }
 
-    function short_desc($desc, $size=25)  {
+    function short_desc($desc, $size=25)
+    {
         $trunc = false;
         $short = "";
         $d = explode(" ", $desc);
-        foreach ($d as $str)    {
+        foreach ($d as $str)
+        {
             if (strlen($short) < $size)
+            {
                 $short .= "$str ";
-            else    {
+            }
+            else
+            {
                 $trunc = true;
                 break;
             }
@@ -523,23 +579,27 @@
         return $short;
     }
 
-    function html_spacer($text = "&nbsp;")  {
+    function html_spacer($text = "&nbsp;")
+    {
         echo "<div class=\"gitspacer\">$text</div>\n";
     }
 
-    function html_title($text = "&nbsp;")  {
+    function html_title($text = "&nbsp;")
+    {
         echo "<div class=\"gittitle\">$text\n";
         echo "</div>\n";
     }
     
-    function html_help($clone = "&nbsp;", $url = "&nbsp;")  {
+    function html_help($clone = "&nbsp;", $url = "&nbsp;")
+    {
         echo "<table cellspacing=\"0\">\n";
         echo "<tr><td>To clone: </td><td>$clone</td></tr>\n";
         echo "<tr><td>To communicate: </td><td><a href=\"$url\">Visit this page</a></td></tr>\n";
         echo "</table>\n";
     }
 
-    function html_breadcrumbs()  {
+    function html_breadcrumbs()
+    {
         echo "<div class=\"githead\">\n";
         $crumb = "<a href=\"".sanitized_url()."\">projects</a> / ";
 
@@ -564,25 +624,29 @@
         echo "</div>\n";
     }
 
-    function zpr ($arr) {
+    function zpr ($arr)
+    {
         print "<pre>" .print_r($arr, true). "</pre>";
     }
 
-    function pretty_code($code) {
+    function pretty_code($code)
+    {
         echo "<code class=\"prettyprint\">\n";
         echo $code;
         echo "</code>\n";
     }
 
-    function highlight($code) {
-
-        if (substr($code, 0,2) != '<?')    {
+    function highlight($code)
+    {
+        if (substr($code, 0,2) != '<?')
+        {
             $code = "<?\n$code\n?>";
             $add_tags = true;
         }
         $code = highlight_string($code,1);
 
-        if ($add_tags)  {
+        if ($add_tags)
+        {
             //$code = substr($code, 0, 26).substr($code, 36, (strlen($code) - 74));
             $code = substr($code, 83, strlen($code) - 140);    
             $code.="</span>";
@@ -591,8 +655,8 @@
         return $code;
     }
 
-    function highlight_code($code) {
-
+    function highlight_code($code)
+    {
         define(COLOR_DEFAULT, '000');
         define(COLOR_FUNCTION, '00b'); //also for variables, numbers and constants
         define(COLOR_KEYWORD, '070');
@@ -600,7 +664,8 @@
         define(COLOR_STRING, 'd00');
 
         // Check it if code starts with PHP tags, if not: add 'em.
-        if(substr($code, 0, 2) != '<?') {
+        if(substr($code, 0, 2) != '<?')
+        {
             $code = "<?\n".$code."\n?>";
             $add_tags = true;
         }
@@ -608,7 +673,8 @@
         $code = highlight_string($code, true);
 
         // Remove the first "<code>" tag from "$code" (if any)
-        if(substr($code, 0, 6) == '<code>') {
+        if(substr($code, 0, 6) == '<code>')
+        {
             $code = substr($code, 6, (strlen($code) - 13));
         }
 
@@ -632,7 +698,8 @@
         $code = substr($code, 25, (strlen($code) -33));
 
         // strip the PHP tags if they were added by the script
-        if($add_tags) {                
+        if($add_tags)
+        {                
             $code = substr($code, 0, 26).substr($code, 36, (strlen($code) - 74));
         }
 
