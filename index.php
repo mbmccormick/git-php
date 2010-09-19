@@ -8,7 +8,7 @@
     $lines = file($repolist);
     foreach ($lines as $line_num => $line)
     {
-        $repos[] = $reporoot . split(" ", $line)
+        $repos[] = $reporoot . split(" ", $line);
     }
 
     sort($repos);
