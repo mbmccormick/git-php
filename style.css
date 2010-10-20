@@ -1,14 +1,14 @@
-a:visited { color: #008000; }
+a:visited { color: #4183C4; }
 a:hover { color: #C00000; }
-a { color: #008000; }
+a { color: #4183C4; }
 
 #gitbody    {
     margin: 20px 10px 20px 10px;
     border-style: solid;
     border-width: 1px;
     border-color: #D8D8D8;
-    font-family: Calibri, sans-serif;
-    font-size: 14px;
+    font-family: helvetica, arial, freesans, clean, sans-serif;
+    font-size: 13.34px;
 }
 
 div.githead    {
@@ -33,7 +33,7 @@ table {
     padding: 3px 5px 3px 8px;
 }
 
-tr:hover { background-color: #edece6; }
+tr:hover { background-color: #eaeaea; }
 
 tr.head:hover { background-color: transparent; }
 
