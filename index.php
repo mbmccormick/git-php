@@ -459,7 +459,7 @@
         $p = basename($repo);
         $proj = explode(".", $p);
         $proj = $proj[0]; 
-        exec("cd /tmp && git-clone $repo && rm -Rf /tmp/$proj/.git && tar czvf $proj.tar.gz $proj && rm -Rf /tmp/$proj");
+        exec("cd /tmp && git clone $repo && rm -Rf /tmp/$proj/.git && tar czvf $proj.tar.gz $proj && rm -Rf /tmp/$proj");
         
         $filesize = filesize("/tmp/$proj.tar.gz");
         header("Pragma: public"); // required
@@ -479,7 +479,7 @@
         $p = basename($repo);
         $proj = explode(".", $p);
         $proj = $proj[0]; 
-        exec("cd /tmp && git-clone $repo && rm -Rf /tmp/$proj/.git && zip -r $proj.zip $proj && rm -Rf /tmp/$proj");
+        exec("cd /tmp && git clone $repo && rm -Rf /tmp/$proj/.git && zip -r $proj.zip $proj && rm -Rf /tmp/$proj");
         
         $filesize = filesize("/tmp/$proj.zip");
         header("Pragma: public"); // required
@@ -517,7 +517,7 @@
             <link><?php echo $link ?></link>
             <description><?php echo $proj ?></description>
             <pubDate><?php echo date('D, d M Y G:i:s', $c['date'])?></pubDate>
-            <generator>http://code.google.com/p/git-php/</generator>
+            <generator>http://www.github.com/mbmccormick/git-php</generator>
             <language>en</language>
             <?php for ($i = 0; $i < 10 && $c; $i++): ?>
             <item>
