@@ -52,6 +52,7 @@
         html_spacer();
         if ($_GET['a'] == "commitdiff")
         {
+            html_title("History");
             html_diff($_GET['p'], $_GET['h'], $_GET['hb']);
         }
         else
