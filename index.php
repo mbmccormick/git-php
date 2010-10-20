@@ -336,7 +336,7 @@
     {
         $path = basename($repo);
         if (!$type)
-            return "<a href=\"".sanitized_url()."p=$path\">".str_replace('.git, '', $path)."</a>";
+            return "<a href=\"".sanitized_url()."p=$path\">".str_replace('.git', '', $path)."</a>";
         else if ($type == "targz")
             return "<a href=\"".sanitized_url()."p=$path&dl=targz\">.tar.gz</a>";
         else if ($type == "zip")
