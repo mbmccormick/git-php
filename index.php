@@ -181,7 +181,7 @@
 
     function html_desc($repo)
     {        
-        $desc = file_get_contents("$repo/description"); 
+        $desc = @file_get_contents("$repo/description"); 
         $owner = get_file_owner($repo);
         $last =  get_last($repo);
 
