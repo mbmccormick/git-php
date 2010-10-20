@@ -57,7 +57,6 @@
         }
         else
         {
-            html_title("Files");
             html_browse($_GET['p']);
         }
     }
@@ -88,14 +87,18 @@
 
     function html_browse($proj)  
     {
-        if (isset($_GET['b']))
+        if (isset($_GET['b'])) {
+            html_title("Content");            
             html_blob($proj, $_GET['b']);
-        else    {
+        }
+        else {
+            html_title("Files");
+            
             if (isset($_GET['t']))
                 $tree = $_GET['t'];
             else 
                 $tree = "HEAD";
-             html_tree($proj, $tree); 
+            html_tree($proj, $tree); 
         }
     }
 
