@@ -186,6 +186,8 @@
         $last =  get_last($repo);
 
         echo "<table cellspacing=\"0\">\n";
+        if (!$desc)
+            echo "<tr><td colspan='2'><span style='color: red;'>Unable to locate repository $repo.</span></td></tr>\n";
         echo "<tr><th>Description</th><td>$desc</td></tr>\n";
         echo "<tr><th>Owner</th><td>$owner</td></tr>\n";
         echo "<tr><th>Last Change</th><td>$last</td></tr>\n";
