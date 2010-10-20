@@ -198,13 +198,17 @@
         echo "<table cellspacing=\"0\">\n";
         echo "<tr class=\"head\"><th>Project</th><th>Description</th><th>Owner</th><th>Last Changed</th><th>Download</th></tr>\n";
         foreach ($repos as $repo)   {
-            $desc = short_desc(file_get_contents("$repo/description")); 
+            $cont = file_get_contents("$repo/description");
+            $desc = short_desc($cont); 
             $owner = get_file_owner($repo);
             $last =  get_last($repo);
             $proj = get_project_link($repo);
             $dlt = get_project_link($repo, "targz");
             $dlz = get_project_link($repo, "zip");
-            echo "<tr><td>$proj</td><td>$desc</td><td>$owner</td><td>$last</td><td>$dlt | $dlz</td></tr>\n";
+            if (!$cont)
+                echo "<tr><td>$proj</td><td colspan='4'><span style='color: red;'>Unable to locate repository $repo.</span></td></tr>\n";
+            else
+                echo "<tr><td>$proj</td><td>$desc</td><td>$owner</td><td>$last</td><td>$dlt | $dlz</td></tr>\n";
         }
         echo "</table>";
     }
