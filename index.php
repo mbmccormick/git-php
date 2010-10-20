@@ -52,7 +52,7 @@
         html_spacer();
         if ($_GET['a'] == "commitdiff")
         {
-            html_title("History");
+            html_title("Commit");
             html_diff($_GET['p'], $_GET['h'], $_GET['hb']);
         }
         else
@@ -79,7 +79,10 @@
         $repo = get_repo_path($proj);
         html_desc($repo);
         if (!isset($_GET['t']) && !isset($_GET['b']))
+        {
+            html_title("History");
             html_shortlog($repo, 6);
+        }
     }
 
     function html_browse($proj)  
