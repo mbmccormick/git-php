@@ -61,12 +61,6 @@ tr.head:hover
     background-color: transparent;
 }
 
-div.gitbrowse a.blob
-{
-    text-decoration: none;
-    color: #000000;
-}
-
 div.gitcode
 {
     padding: 10px;
