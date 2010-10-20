@@ -608,10 +608,10 @@
     function html_breadcrumbs()
     {
         echo "<div class=\"githead\">\n";
-        $crumb = "<a href=\"".sanitized_url()."\">projects</a> / ";
+        $crumb = "<a href=\"".sanitized_url()."\">projects</a>";
 
         if (isset($_GET['p']))
-            $crumb .= "<a href=\"".sanitized_url()."p={$_GET['p']}\">{$_GET['p']}</a> / ";
+            $crumb .= "<a href=\"".sanitized_url()."p={$_GET['p']}\">{$_GET['p']}</a>";
         
         if (isset($_GET['b']))
             $crumb .= "blob";
