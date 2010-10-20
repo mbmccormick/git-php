@@ -105,7 +105,7 @@
         $out = array();
         $plain = "<a href=\"".sanitized_url()."p=$proj&dl=plain&h=$blob\">plain</a>";
         echo "<div style=\"float:right;padding:7px;\">$plain</div>\n";
-        exec("GIT_DIR=$repo git-cat-file blob $blob", $out);
+        exec("GIT_DIR=$repo git cat-file blob $blob", $out);
         echo "<div class=\"gitcode\">\n";
         //echo highlight(implode("\n", $out));
         //echo highlight_code(implode("\n",$out));
