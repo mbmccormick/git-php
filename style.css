@@ -1,8 +1,22 @@
-a:visited { color: #4183C4; }
-a:hover { color: #C00000; }
-a { color: #4183C4; }
+a
+{
+    color: #4183C4;
+    text-decoration: none;
+}
 
-#gitbody    {
+a:hover
+{
+    color: #4183C4;
+    text-decoration: underline;
+}
+
+a:visited
+{
+    color: #4183C4;
+}
+
+#gitbody
+{
     margin: 20px 10px 20px 10px;
     border-style: solid;
     border-width: 1px;
@@ -11,7 +25,8 @@ a { color: #4183C4; }
     font-size: 13.34px;
 }
 
-div.githead    {
+div.githead
+{
     margin: 0px 0px 0px 0px;
     padding: 10px 10px 10px 10px;
     background-color: #eaeaea;
@@ -19,66 +34,101 @@ div.githead    {
     font-size: 18px;
 }
 
-table {
+table
+{
     padding: 5px;
 }
 
-#gitbody th {
+#gitbody th
+{
     text-align: left;
     padding: 3px 0px 3px 8px;
 }
 
-#gitbody td {
+#gitbody td
+{
     text-align: left;
     padding: 3px 5px 3px 8px;
 }
 
-tr:hover { background-color: #eaeaea; }
+tr:hover
+{
+    background-color: #eaeaea;
+}
 
-tr.head:hover { background-color: transparent; }
+tr.head:hover
+{
+    background-color: transparent;
+}
 
-div.gitbrowse a.blob {
+div.gitbrowse a.blob
+{
     text-decoration: none;
     color: #000000;
 }
 
-div.gitcode {
+div.gitcode
+{
     padding: 10px;
 }
 
-div.gitspacer   {
+div.gitspacer
+{
     padding: 1px 0px 0px 0px;
     background-color: #FFFFFF;
 }
 
-div.gitfooter {
+div.gitfooter
+{
     padding: 7px 2px 2px 2px;
     background-color: #eaeaea;
     text-align: right;
 }
 
-div.gittitle   {
+div.gittitle
+{
     padding: 7px 7px 7px 13px;
     background-color: #eaeaea;
     font-weight: bold;
 }
 
-div.gitbrowse a.blob:hover {
+div.gitbrowse a.blob:hover
+{
     text-decoration: underline;
 }
-a.gitbrowse:hover { text-decoration:underline; color:#880000; }
-a.rss_logo {
-    float:left; padding:3px 0px; width:35px; line-height:10px;
-        margin: 2px 5px 5px 5px;
-        border:1px solid; border-color:#fcc7a5 #7d3302 #3e1a01 #ff954e;
-        color:#ffffff; background-color:#ff6600;
-        font-weight:bold; font-family:sans-serif; font-size:10px;
-        text-align:center; text-decoration:none;
-    }
-a.rss_logo:hover { background-color:#ee5500; }            
 
-a.gitlogo {
-    float:right;
+a.gitbrowse:hover
+{
+    text-decoration: underline;
+    color: #880000;
+}
+
+a.rss_logo
+{
+    float: left;
+    padding: 3px 0px;
+    width: 35px;
+    line-height: 10px;
+    margin: 2px 5px 5px 5px;
+    border: 1px solid;
+    border-color: #fcc7a5 #7d3302 #3e1a01 #ff954e;
+    color: #ffffff;
+    background-color: #ff6600;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.rss_logo:hover
+{
+    background-color: #ee5500;
+}
+
+a.gitlogo
+{
+    float: right;
     padding: 0px;
-    margin: -2px -7px 0px 0px;                    
+    margin: -2px -7px 0px 0px;
 }
