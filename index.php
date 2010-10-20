@@ -198,7 +198,7 @@
         echo "<table cellspacing=\"0\">\n";
         echo "<tr class=\"head\"><th>Project</th><th>Description</th><th>Owner</th><th>Last Changed</th><th>Download</th></tr>\n";
         foreach ($repos as $repo)   {
-            $cont = file_get_contents("$repo/description");
+            $cont = @file_get_contents("$repo/description");
             $desc = short_desc($cont); 
             $owner = get_file_owner($repo);
             $last =  get_last($repo);
