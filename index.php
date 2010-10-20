@@ -611,16 +611,16 @@
         $crumb = "<a href=\"".sanitized_url()."\">projects</a>";
 
         if (isset($_GET['p']))
-            $crumb .= "<a href=\"".sanitized_url()."p={$_GET['p']}\">{$_GET['p']}</a>";
+            $crumb .= " / <a href=\"".sanitized_url()."p={$_GET['p']}\">{$_GET['p']}</a>";
         
         if (isset($_GET['b']))
-            $crumb .= "blob";
+            $crumb .= " / blob";
 
         if (isset($_GET['t']))
-            $crumb .= "tree";
+            $crumb .= " / tree";
 
         if ($_GET['a'] == 'commitdiff')
-            $crumb .= 'commitdiff';
+            $crumb .= ' / commitdiff';
 
         echo $crumb;
         
