@@ -80,6 +80,7 @@
         html_desc($repo);
         if (!isset($_GET['t']) && !isset($_GET['b']))
         {
+            html_spacer();
             html_title("History");
             html_shortlog($repo, 6);
         }
